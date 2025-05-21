@@ -20,13 +20,16 @@ app.get("/users", (req, res) => {
     if(!user) return res.status(404).send("user cannot be found")
 });
 
-app.post("users", (req, res) => {
+app.post("/users", (req, res) => {
+    const{name} = req.body;
+    if(!name) return res.status(400).json({message: "Name is require please"});
+
     const newUser = {
         id: users.length+1,
         name: req.body.name
     };
     users.push(newUser);
-    res.status(201).json(newUsers)
+    res.status(201).json(newUser)
 });
 
 app.put("users/:id", (reg, res) => {
